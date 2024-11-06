@@ -4,13 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Portfolio Management System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Financial Portfolio Management System</h1>
+    <div class="container">
+        <h1>Financial Portfolio Management System</h1>
 
-    <!-- Portfolio details and transaction log sections here -->
+        <section id="portfolio-summary">
+            <h2>Portfolio Summary</h2>
+            <div id="total-value"></div>
+            <div id="asset-breakdown"></div>
+        </section>
 
-    <!-- Main script entry point with module type -->
+        <section id="asset-list">
+            <h2>Asset List</h2>
+            <table id="assets-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total Value</th>
+                    </tr>
+                </thead>
+                <tbody id="assets-body"></tbody>
+            </table>
+        </section>
+
+        <section id="transaction-log">
+            <h2>Transaction Log</h2>
+            <div id="transactions"></div>
+        </section>
+    </div>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>
