@@ -1,4 +1,4 @@
-import { assets, getAssetById } from "./asset";
+import { getAssetById } from "./asset.js";
 
 export class Transaction {
     constructor(assetId, type, quantity){
