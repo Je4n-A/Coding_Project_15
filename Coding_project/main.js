@@ -3,40 +3,65 @@ import { Transaction } from './transaction.js';
 
 // Display the total portfolio value
 const totalValue = calculatePortfolioValue();
-console.log(`Total Portfolio Value: $${totalValue}`);
+document.getElementById('total-value').innerText = `Total Portfolio Value: $${totalValue}`;
 
 // Display the portfolio allocation percentages
 const portfolioAllocation = getPortfolioAllocation();
-console.log('Portfolio Allocation:');
+const assetBreakdown = document.getElementById('asset-breakdown');
 portfolioAllocation.forEach(asset => {
-    console.log(`${asset.name} (${asset.type}): ${asset.allocation}%`);
+    const assetDiv = document.createElement('div');
+    assetDiv.innerText = `${asset.name} (${asset.type}): ${asset.allocation}%`;
+    assetBreakdown.appendChild(assetDiv);
 });
 
-// Create a few Transaction instances for different assets
+// Display the asset list
+const assetsTableBody = document.getElementById('assets-body');
+portfolioAllocation.forEach(asset => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${asset.name}</td>
+        <td>${asset.type}</td>
+        <td>$${asset.price}</td>
+        <td>${asset.quantity}</td>
+        <td>$${(asset.price * asset.quantity).toFixed(2)}</td>
+    `;
+    assetsTableBody.appendChild(row);
+});
+
+// Create a few Transaction instances for different assets and display the transaction details
+const transactionLog = document.getElementById('transactions');
+function logTransaction(transaction) {
+    const transactionDiv = document.createElement('div');
+    transactionDiv.innerText = `${transaction.type.toUpperCase()} ${transaction.quantity} of ${transaction.asset.name}`;
+    transactionLog.appendChild(transactionDiv);
+}
+
 try {
     const buyTransaction1 = new Transaction(1, 'buy', 10);
-    console.log('Buy Transaction 1:', buyTransaction1);
+    logTransaction(buyTransaction1);
 
     const sellTransaction1 = new Transaction(2, 'sell', 5);
-    console.log('Sell Transaction 1:', sellTransaction1);
+    logTransaction(sellTransaction1);
 
     const buyTransaction2 = new Transaction(3, 'buy', 1);
-    console.log('Buy Transaction 2:', buyTransaction2);
+    logTransaction(buyTransaction2);
 
     // This will throw an error if quantity is insufficient
     const sellTransaction2 = new Transaction(4, 'sell', 10);
-    console.log('Sell Transaction 2:', sellTransaction2);
+    logTransaction(sellTransaction2);
 } catch (error) {
     console.error(error.message);
 }
 
 // Display the updated portfolio value after transactions
 const updatedTotalValue = calculatePortfolioValue();
-console.log(`Updated Total Portfolio Value: $${updatedTotalValue}`);
+document.getElementById('total-value').innerText = `Updated Total Portfolio Value: $${updatedTotalValue}`;
 
 // Display the updated portfolio allocation percentages
 const updatedPortfolioAllocation = getPortfolioAllocation();
-console.log('Updated Portfolio Allocation:');
+assetBreakdown.innerHTML = ''; // Clear previous allocation
 updatedPortfolioAllocation.forEach(asset => {
-    console.log(`${asset.name} (${asset.type}): ${asset.allocation}%`);
+    const assetDiv = document.createElement('div');
+    assetDiv.innerText = `${asset.name} (${asset.type}): ${asset.allocation}%`;
+    assetBreakdown.appendChild(assetDiv);
 });
