@@ -67,13 +67,5 @@ export const assets = [
 ];
 
 export function getAssetById(id) {
-    return(
-        typeof assets.id === 'number' &&
-        typeof assets.name === 'string' &&
-        ['stock', 'etf', 'bond', 'mutual_fund'].includes(assets.type) &&
-        typeof assets.price === 'number' &&
-        typeof assets.quantity === 'number' &&
-        assets.price > 0 &&
-        assets.quantity >= 0
-    );
+    return assets.find(asset => asset.id === id);       
 };
